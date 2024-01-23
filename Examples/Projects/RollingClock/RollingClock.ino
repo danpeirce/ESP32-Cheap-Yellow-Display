@@ -23,7 +23,8 @@ void Debug(String label, int val)
 
 /*-------- TIME SERVER ----------*/
 // NTP Servers:
-static const char ntpServerName[] = "us.pool.ntp.org";
+static const char ntpServerName[] = "ca.pool.ntp.org";
+//static const char ntpServerName[] = "us.pool.ntp.org";
 // static const char ntpServerName[] = "time.nist.gov";
 // static const char ntpServerName[] = "time-a.timefreq.bldrdoc.gov";
 // static const char ntpServerName[] = "time-b.timefreq.bldrdoc.gov";
@@ -44,13 +45,13 @@ const bool SHOW_AMPM = true;
 const bool NOT_US_DATE = true;
 
 // Info about these settings at https://github.com/JChristensen/Timezone#coding-timechangerules
-TimeChangeRule myStandardTime = {"CST", First, Sun, Nov, 2, -6 * 60};
-TimeChangeRule myDaylightSavingsTime = {"CDT", Second, Sun, Mar, 2, -5 * 60};
+TimeChangeRule myStandardTime = {"CST", First, Sun, Nov, 2, -8 * 60};         // PST
+TimeChangeRule myDaylightSavingsTime = {"CDT", Second, Sun, Mar, 2, -5 * 60};  // PDT
 
 // TimeChangeRule myStandardTime = {"GMT", First, Sun, Nov, 2, 0};
 // TimeChangeRule myDaylightSavingsTime = {"IST", Second, Sun, Mar, 2, 1 * 60};
 Timezone myTZ(myStandardTime, myDaylightSavingsTime);
-static const int ntpSyncIntervalInSeconds = 300; // How often to sync with time server (300 = every five minutes)
+static const int ntpSyncIntervalInSeconds = 60*60*24; // How often to sync with time server (every 24 hours)
 
 /*-------- CYD (Cheap Yellow Display) ----------*/
 #include <TFT_eSPI.h> // Hardware-specific library
@@ -62,7 +63,7 @@ int clockFont = 1;
 int clockSize = 6;
 int clockDatum = TL_DATUM;
 uint16_t clockBackgroundColor = TFT_BLACK;
-uint16_t clockFontColor = TFT_YELLOW;
+uint16_t clockFontColor = TFT_WHITE;
 int prevDay = 0;
 
 void SetupCYD()
